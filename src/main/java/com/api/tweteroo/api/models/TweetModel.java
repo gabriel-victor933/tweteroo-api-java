@@ -28,4 +28,9 @@ public class TweetModel {
     @JoinColumn(name = "user_id")
     private UserModel user;
 
+    public TweetModel(String text, UserModel user){
+        this.text = text;
+        this.user = user;
+    }
+
 }
