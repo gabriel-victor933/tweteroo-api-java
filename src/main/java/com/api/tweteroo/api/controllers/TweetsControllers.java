@@ -5,39 +5,43 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.tweteroo.api.models.TweetModel;
 import com.api.tweteroo.api.repositories.TweetsRepository;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
-@RestController("tweets")
+
+@RestController
+@RequestMapping("tweets")
 public class TweetsControllers {
     
     @Autowired
     private TweetsRepository tweetsRepository;
 
     @GetMapping
-    public List<TweetModel> getTweets() {
-        return tweetsRepository.findAll();
+    public ResponseEntity<Object> getTweets() {
+        List<TweetModel> tweets = tweetsRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(tweets);
     }
 
-    @PostMapping
-    public SomeEnityData postTweet(@RequestBody SomeEnityData entity) {
+/*     @PostMapping
+    public ResponseEntity<Object> postTweet(@RequestBody @Valid TweetDto tweet) {
         //TODO: process POST request
         
-        return entity;
+        return tweet;
     }
     
     @GetMapping("/user/{id}")
-    public List<TweetModel> getTweetsByUserId(@PathVariable Long id) {
-        return tweetsRepository.findAll();
+    public ResponseEntity<Object> getTweetsByUserId(@PathVariable Long id) {
+        List<TweetModel> tweets = tweetsRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(tweets);
     }
-    
+     */
     
 }
